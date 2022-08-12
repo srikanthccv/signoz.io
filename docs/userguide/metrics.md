@@ -47,7 +47,7 @@ We rely on the semantic conventions provided by OpenTelemetry. Every unique `ser
 
 ![trace-request](/img/docs/trace_request_shop.png)
 
-In a distributed trace, a request goes through a number of entities performing various kinds of work. There is an entry point span for each service that took part in the trace journey. This can be thought of as a sub-root span for the service. This sub-root span can have a number of child spans which could be doing work in parallel or sequential or a combination of both. From an outside perspective this sub-root span work is an operation done by the service and how much time it took to complete this operation is the duration metric. For a web server, this is an API endpoint returning some data back and request time is the duration metric. For a messaging consumer service, this is a consume trigger, and till it is done with the message received. For a mobile client application, this could be a button click to submit a form and the time taken to fulfill the request.
+In a distributed trace, a request goes through several entities performing various kinds of work. There is an entry point span for each service that took part in the trace journey. This can be thought of as a sub-root span for the service. This sub-root span can have many child spans which could be doing work in parallel or sequential or a combination of both. From an outside perspective this sub-root span work is an operation done by the service and how much time it took to complete this operation is the duration metric. For a web server, this is an API endpoint returning some data and request time is the duration metric. For a messaging consumer service, this is a consume trigger, and till it is done with the message received. For a mobile client application, this could be a button click to submit a form and the time taken to fulfill the request.
 
 - Requests/s - Number of sub-root spans seen for a service
 - PXX - Quantile of the duration of the sub-root spans
@@ -68,7 +68,7 @@ You can add attributes to applications and filter based on these attributes.
 
 ### Steps to add resource attributes
 
-You can add attributes as `OTEL_RESOURCE_ATTRIBUTES` flag when starting the application. The below example shows how to set values for `service.namespace` and `deployment.environment`
+You can add attributes with `OTEL_RESOURCE_ATTRIBUTES` flag when starting the application. The below example shows how to set values for `service.namespace` and `deployment.environment`
 
 For example
 
