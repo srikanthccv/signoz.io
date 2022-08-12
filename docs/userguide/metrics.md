@@ -1,7 +1,7 @@
 ---
 id: metrics
-title: View Metrics
-sidebar_label: View Metrics
+title: View Services
+sidebar_label: View Services
 ---
 
 import GetHelp from '../shared/get-help.md'
@@ -9,10 +9,10 @@ import PrereqsInstrument from '../shared/prereqs-instrument.md'
 import UseHotRod from '../shared/use-hotrod.md'
 import MetricsDefinition from '../shared/metrics-definition.md'
 
-This page walks you through the **Metrics** section and gets you started with monitoring your application. You’ll learn the following:
+This page walks you through the **Services** section and gets you started with monitoring your application. You’ll learn the following:
 
 - What are application metrics
-- How to use the **Metrics** section to see an overview of your applications
+- How to use the **Services** section to see an overview of your applications
 - How to view details about a specific application
 
 <UseHotRod />
@@ -25,23 +25,36 @@ This page walks you through the **Metrics** section and gets you started with mo
 
 <MetricsDefinition />
 
-The **Metrics** section relies on the rate, errors, and duration (”RED”) method to help you predict the experience of your users and includes the following keys metrics:
+The **Services** section relies on the rate, errors, and duration (”RED”) method to help you predict the experience of your users and includes the following keys metrics:
 
 - **P99 Latency:** the amount of time your application spends processing each of the fastest 99% of requests. For example, if the value of the `P99` latency is 760 ms, 99% percent of requests have responses that are equal to or faster than 760 ms.
-- **Error Rate**: the number of failing requests per second.
+- **Error Rate**: the percentage of failing requests i.e ratio of error requests to the total requests.
 - **Requests per Second**: the number of requests your application processes per second.
 
-## Open the Metrics Section
+## Open the Services Section
 
-From the sidebar, select **Metrics**:
+From the sidebar, select **Services**:
 
-![Open the Metrics section](/img/open-metrics-v0.6.2.png)
+![Open the Services section](/img/docs/open-services-v0.10.2.png)
 
 This page provides an overview of your applications’ health and performance. It shows the list of your applications formatted as a table and, for each application, SigNoz displays the RED metrics mentioned above.
 
-The services list only shows services which are serving API calls. If a service is only making client calls to APIs of other services, it will not be shown in the services list page
+This page shows all the instrumented applications sending the data to SigNoz. This includes web servers, message brokers/queuing systems, web/mobile clients, corn jobs, and more.
 
-![RED metrics](/img/red-metrics-v0.6.2.png)
+What services are shown? And how are the RED metrics calculated?
+
+We rely on the semantic conventions provided by OpenTelemetry. Every unique `service.name` configured and received is part of the service list. The following logic is used for the RED metrics generation of each service.
+
+![trace-request](/img/docs/trace_request_shop.png)
+
+In a distributed trace, a request goes through a number of entities performing various kinds of work. There is an entry point span for each service that took part in the trace journey. This can be thought of as a sub-root span for the service. This sub-root span can have a number of child spans which could be doing work in parallel or sequential or a combination of both. From an outside perspective this sub-root span work is an operation done by the service and how much time it took to complete this operation is the duration metric. For a web server, this is an API endpoint returning some data back and request time is the duration metric. For a messaging consumer service, this is a consume trigger, and till it is done with the message received. For a mobile client application, this could be a button click to submit a form and the time taken to fulfill the request.
+
+- Requests/s - Number of sub-root spans seen for a service
+- PXX - Quantile of the duration of the sub-root spans
+- Error rate - Number of sub-root spans with status error / Total number of sub-root spans
+
+
+![RED metrics](/img/docs/open-services-v0.10.2.png)
 
 ## Sort the List of Applications
 
@@ -72,27 +85,27 @@ To add another dimension, update the dimension fields at https://github.com/SigN
 
 The RED metrics help you spot performance bottlenecks or failures  across all your applications.  For example, if the error rate of an application increases, you can assume that these errors will impact the experience of your customers. Once you’ve identified a potential issue, select a row to open the application details page:
 
-![Open the application details page](/img/open-application-details-v0.6.2.png)
+![Open the application details page](/img/docs/open-application-details-v0.10.2.png)
 
 The application details pane contains three panes that are explained in the following sections:
 - Application Metrics
 - External Calls
 - Database Calls
 
-![Panes on the application details page](/img/application-details-page-panes-v0.6.2.png)
+![Panes on the application details page](/img/docs/application-details-page-panes-v0.10.2.png)
 
 ### Application Metrics
 
 The application metrics pane is comprised of four graphs:
 
 - **Application Latency in Milliseconds**: this graph shows the `P99`, `P95`, and `P50` latencies for the selected period of time.
-    ![Application latency](/img/application-latency-v0.6.2.png)
+    ![Application latency](/img/docs/application-latency-v0.10.2.png)
 - **Requests per Second**: this graph shows the number of requests per second your application currently serves.
-    ![Requests per second](/img/requests-per-second-v0.6.2.png)
+    ![Requests per second](/img/docs/requests-per-second-v0.10.2.png)
 - **Error Percentage**: this graph shows the percentage of errors of the total sum of requests.
-    ![Error percentage](/img/error-percentage-v0.6.2.png)
-- **Top Endpoints**: this list helps you find the slow endpoints of your application. You can select a column heading to sort the list by the values in that column. Select the column heading again to reverse the sort order or to cancel sorting.
-    ![Top endpoints](/img/top-endpoints-v0.6.2.png)
+    ![Error percentage](/img/docs/error-percentage-v0.10.2.png)
+- **Key Operations**: this list helps you find the slow operations of your application. You can select a column heading to sort the list by the values in that column. Select the column heading again to reverse the sort order or to cancel sorting.
+    ![Key operations](/img/docs/key-operations-v0.10.2.png)
 
 ### External Calls
 
