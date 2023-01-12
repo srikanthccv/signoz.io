@@ -31,8 +31,9 @@ SigNoz supports two types of panels: time series, which displays a metric over a
     - The declarative query language based on SQL that ClickHouse supports. For details, see the [SQL Reference](https://clickhouse.com/docs/en/sql-reference/) page of the ClickHouse documentation.
     - PromQL. For details see the [Prometheus Querying Language](https://prometheus.io/docs/prometheus/latest/querying/basics/) page of the Prometheus documentation.
 7. _(Optional)_ If you’re using the query builder, you can also transform your data by adding mathematical functions. For example, you can divide the value that a query returns by a number. The following mathematical functions are supported: *exp*, *log*, *ln*, *exp2*, *log2*, *exp10*, *log10*, *sqrt*, *cbrt*, *erf*, *erfc*, *lgamma*, *tgamma*, *sin*, *cos*, *tan*, *asin*, *acos*, *atan*, *degrees*, *radians.*
-8. _(Optional)_ You can plot up to ten queries on the same panel. To plot a new query, select the **+ Query** button.
-9.  When you’ve finished, select the **Save** button.
+8. _(Optional)_ The result of the panel query returns a timestamp, float value, and optional set of attributes. The attributes from the response can be used in legend formatting.
+9. _(Optional)_ You can plot up to ten queries on the same panel. To plot a new query, select the **+ Query** button.
+10.  When you’ve finished, select the **Save** button.
 
 Note the following about panels:
 - The total number of queries and functions you can plot on a single panel must be less or equal to ten.
