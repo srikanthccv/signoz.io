@@ -71,7 +71,7 @@ With SigNoz, you can monitor the health of the HTTP endpoints and set up an aler
       tls:
         insecure: false
       headers:
-        "signoz-access-token": "<SIGNOZ_API_KEY>"
+        "signoz-access-token": "<SIGNOZ_INGESTION_KEY>"
   ...
     service:
         ....
