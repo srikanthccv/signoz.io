@@ -44,7 +44,9 @@ receivers:
       network: {}
       paging: {}
       process:
-       mute_process_name_error: true
+        mute_process_name_error: true
+        mute_process_exe_error: true
+        mute_process_io_error: true
       processes: {}
 processors:
   batch:
@@ -52,7 +54,7 @@ processors:
     timeout: 10s
   # Ref: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md
   resourcedetection:
-    detectors: [env, system, ec2] # include ec2 for AWS, gce for GCP and azure for Azure.
+    detectors: [env, system, ec2] # include ec2 for AWS, gcp for GCP and azure for Azure.
     # Using OTEL_RESOURCE_ATTRIBUTES envvar, env detector adds custom labels.
     timeout: 2s
     override: false
@@ -66,7 +68,7 @@ exporters:
     headers:
       "signoz-access-token": "<SIGNOZ_INGESTION_KEY>"
   logging:
-    loglevel: debug
+    verbosity: detailed
 service:
   telemetry:
     metrics:
@@ -106,20 +108,22 @@ receivers:
       network: {}
       paging: {}
       process:
-       mute_process_name_error: true
+        mute_process_name_error: true
+        mute_process_exe_error: true
+        mute_process_io_error: true
       processes: {}
   rabbitmq:
     endpoint: http://localhost:15672
     username: <RABBITMQ_USERNAME>
     password: <RABBITMQ_PASSWORD>
-    collection_interval: 10s
+    collection_interval: 30s
 processors:
   batch:
     send_batch_size: 1000
     timeout: 10s
   # Ref: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/resourcedetectionprocessor/README.md
   resourcedetection:
-    detectors: [env, system, ec2] # include ec2 for AWS, gce for GCP and azure for Azure.
+    detectors: [env, system, ec2] # include ec2 for AWS, gcp for GCP and azure for Azure.
     # Using OTEL_RESOURCE_ATTRIBUTES envvar, env detector adds custom labels.
     timeout: 2s
     override: false
@@ -133,7 +137,7 @@ exporters:
     headers:
       "signoz-access-token": "<SIGNOZ_INGESTION_KEY>"
   logging:
-    loglevel: debug
+    verbosity: detailed
 service:
   telemetry:
     metrics:
