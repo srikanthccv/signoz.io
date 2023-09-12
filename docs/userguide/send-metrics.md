@@ -1,7 +1,7 @@
 ---
 id: send-metrics
-title: Send Metrics to SigNoz
-sidebar_label: Send Metrics
+title: Send Metrics to SigNoz (Self Hosted)
+sidebar_label: Send Metrics (Self Hosted)
 ---
 
 import GetHelp from '../shared/get-help.md'
