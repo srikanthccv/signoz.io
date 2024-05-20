@@ -469,6 +469,17 @@ module.exports = {
       ],
     },
     {
+      label: "Metrics",
+      type: "category",
+      items: [
+        {
+          type: 'doc',
+          id: 'metrics-management/types-and-aggregation',
+          label: 'Types and Aggregation',
+        },
+      ],
+    },
+    {
       label: "Dashboards & Querying",
       type: "category",
       items: [
